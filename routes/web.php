@@ -111,8 +111,10 @@ Route::get('cart', 'CartController@index')
 Route::get('co', 'CoController@index')
         ->name('co');
 
-Route::get('success/{id}', 'CoController@success')
+Route::get('success', 'CoController@success')
         ->name('success');
+Route::get('my-detail-order/{id_order}', 'MyaccountController@detail')
+        ->name('my-detail-order');
 
 
 Route::middleware(['auth', 'preventBackHistory']) // ini diisi setelah instal middleware(satpam)
@@ -120,8 +122,10 @@ Route::middleware(['auth', 'preventBackHistory']) // ini diisi setelah instal mi
         ->group(function () {
                 Route::get('wishlist', 'WishlistController@index')
                         ->name('wishlist');
-
+                        
                 Route::resource('my-account', 'MyaccountController');
+                // Route::get('my-detail-order/[id_order]', 'MyaccountController@detail')
+                //         ->name('my-detail-order');
         });
 
 

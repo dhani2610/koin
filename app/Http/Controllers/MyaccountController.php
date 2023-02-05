@@ -37,6 +37,8 @@ class MyaccountController extends Controller
         ->where('users_id', Auth::user()->id)
         ->get();
 
+        // dd($userWishlists);
+
         $emptyBottles = Koinpack_shopping_cart::with([
             'empetybottle'
         ])
@@ -57,6 +59,16 @@ class MyaccountController extends Controller
             'user'                  =>  $user,
             'orders'                =>  $orders,
 
+        ]);
+    }
+
+    public function detail($id_order){
+        $orders = Koinpack_payment::where('users_id',Auth::user()->id )->where('external_id',$id_order)
+        ->orderBy('created_at', 'DESC')   
+        ->get();
+
+        return view('pages.my-order-detail',[
+            'orders'=>  $orders,
         ]);
     }
 

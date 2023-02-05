@@ -170,17 +170,19 @@
       margin-bottom: 20px;
     }
     
-    button {
+    a {
       border: none;
-      color: white;
+      color: white!important;
       cursor: pointer;
       border-radius: 12px;            
       padding: 10px 18px;            
       background-color: #019871;
       text-shadow: 0 1px rgba(128, 128, 128, 0.75);
+      text-decoration: none!important;
     }
-    button:hover {
+    a:hover {
       background-color: #85ddbf;
+      text-decoration: none!important;
     }
 
     .kiri {
@@ -197,16 +199,61 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
-<body>
-    <div class="wrapperAlert">
+<body id="printableArea">
+ 
+
+@php
+    
+// Ini akan menjadi Token Verifikasi Callback Anda yang dapat Anda peroleh dari dasbor.
+// Pastikan untuk menjaga kerahasiaan token ini dan tidak mengungkapkannya kepada siapa pun.
+// Token ini akan digunakan untuk melakukan verfikasi pesan callback bahwa pengirim callback tersebut adalah Xendit
+$xenditXCallbackToken = '3f992c56013184cb60c97bb686874313964a5404c9a86902033cdf540f6d88d4';
+
+// Bagian ini untuk mendapatkan Token callback dari permintaan header, 
+// yang kemudian akan dibandingkan dengan token verifikasi callback Xendit
+$reqHeaders = getallheaders();
+$xIncomingCallbackTokenHeader = isset($reqHeaders['x-callback-token']) ? $reqHeaders['x-callback-token'] : "";
+
+// Untuk memastikan permintaan datang dari Xendit
+// Anda harus membandingkan token yang masuk sama dengan token verifikasi callback Anda
+// Ini untuk memastikan permintaan datang dari Xendit dan bukan dari pihak ketiga lainnya.
+if($xIncomingCallbackTokenHeader === $xenditXCallbackToken){
+  // Permintaan masuk diverifikasi berasal dari Xendit
+    
+  // Baris ini untuk mendapatkan semua input pesan dalam format JSON teks mentah
+  $rawRequestInput = file_get_contents("php://input");
+  // Baris ini melakukan format input mentah menjadi array asosiatif
+  $arrRequestInput = json_decode($rawRequestInput, true);
+  print_r($arrRequestInput);
+  
+  $_id = $arrRequestInput['id'];
+  $_externalId = $arrRequestInput['external_id'];
+  $_userId = $arrRequestInput['user_id'];
+  $_status = $arrRequestInput['status'];
+  $_paidAmount = $arrRequestInput['paid_amount'];
+  $_paidAt = $arrRequestInput['paid_at'];
+  $_paymentChannel = $arrRequestInput['payment_channel'];
+  $_paymentDestination = $arrRequestInput['payment_destination'];
+
+  // Kamu bisa menggunakan array objek diatas sebagai informasi callback yang dapat digunaka untuk melakukan pengecekan atau aktivas tertentu di aplikasi atau sistem kamu.
+
+}else{
+  // Permintaan bukan dari Xendit, tolak dan buang pesan dengan HTTP status 403
+  http_response_code(403);
+}
+@endphp
+
+    <div class="wrapperAlert" >
 
         <div class="contentAlert">
       
-          <div class="topHalf">
+          <div class="topHalf" >
       
-            <p><svg viewBox="0 0 512 512" width="100" title="check-circle">
+            {{-- <p><svg viewBox="0 0 512 512" width="100" title="check-circle">
               <path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z" />
-              </svg></p>
+              </svg></p> --}}
+              {{-- <img src="{{ asset('frontend/NicePng_check-png_3325750.png') }}" alt=""> --}}
+              <img src="{{ asset('frontend/NicePng_check-png_3325750.png') }}" style="max-width: 107px;" alt="">
             <h1>Recharge Successful</h1>
       
            <ul class="bg-bubbles">
@@ -229,32 +276,32 @@
 
             <table>
                 <tr>
-                    <td class="kiri">Transaction ID : </td>
-                    <td class="kanan">{{ $data->external_id }}</td>
+                    <td class="kiri">Order ID : </td>
+                    <td class="kanan">{{ $_externalId }}</td>
                 </tr>
                 <tr>
-                    <td class="kiri">Payment : </td>
-                    <td class="kanan">{{ $data->payment_chanel }}</td>
+                    <td class="kiri">Status : </td>
+                    <td class="kanan">{{ $_status }}</td>
                 </tr>
                 <tr>
                     <td class="kiri">Date : </td>
-                    <td class="kanan">{{ $data->created_at }}</td>
+                    <td class="kanan">{{ $_paidAt }}</td>
                 </tr>
                 <tr>
-                    <td class="kiri">Phone : </td>
-                    <td class="kanan">{{ $data->phone }}</td>
+                    <td class="kiri">Payment Channel : </td>
+                    <td class="kanan">{{ $_paymentChannel }}</td>
                 </tr>
-              
                 <tr>
                     <td class="kiri">Total Price : </td>
-                    <td class="kanan">{{ rupiah($data->price) }}</td>
+                    <td class="kanan">{{ rupiah($_paidAmount) }}</td>
                 </tr>
             </table>
 
             <br>
             <br>
             <br>
-            <button id="alertMO">Order Detail</button>
+            <a href="{{ route('my-detail-order',$_externalId) }}" id="alertMO">Order Detail</a>
+            <a href="#" onclick="printDiv('printableArea')" id="alertMO">Print</a>
 
             <br>
       
@@ -265,4 +312,17 @@
       </div>
     
 </body>
+
+<script>
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+</script>
 </html>

@@ -24,28 +24,60 @@
         <div class="tab-content mt-30">
           <div class="tab-pane fade " id="tab-notification" role="tabpanel" aria-labelledby="tab-notification">
             <div class="list-notifications">
-              @foreach ($orders as $order_notification)
-              <div class="item-notification">
-                {{-- <div class="image-notification">
-                  <img src="{{ url('frontend/assets/imgs/page/account/img-1.png') }}" alt="Alner">
-                </div> --}}
-                <div class="info-notification">
-                  <h5 class="mb-5">Order Id: #{{ $order_notification->external_id }} 
-                  <span class="font-md color-brand-3">with status 
-                    <span class="@if ($order_notification->status == 'PENDING')
-                    label-delivery bg-warning
-                    @elseif($order_notification->status == 'PAID')
-                    label-delivery label-delivered
-                    @else
-                    label-delivery label-cancel
-                    @endif">{{ $order_notification->status }}</span>
-                  </span>
-                </h5>
-                  {{-- <p class="font-md color-brand-3">Order<span class="font-md-bold"> {{ $order_notification->external_id }}</span> has been confirmed. Please check the estimated delivery time in the order details section!</p> --}}
+              @foreach ($orders as $order)
+            <div class="box-orders" id="{{ $order->external_id }}">
+         
+              <div class="body-orders">
+                <div class="list-orders">
+                  @php
+                  // $product_order = json_decode($order->products_id);
+                  // $name = explode('-',$product_order);
+                  //     dd($name[0]);
+                  @endphp
+                  @foreach (json_decode($order->products_id) as $order_products)
+                  @php
+                      $productArr = explode('-',$order_products);
+                      // dd($productArr[1]);
+                      $product_order = App\Koinpack_product::find($productArr[0]);
+                  @endphp
+                  <div class="item-orders">
+                    <div class="image-orders">
+                      
+                      {{-- <img src="{{ url('frontend/assets/imgs/page/account/img-1.png') }}" alt="Alner"> --}}
+                    <img src="{!!$product_order->image ? Storage::url($product_order->image) : url('backend/assets/img/news/img11.jpg') !!} ">
+                    </div>
+                    <div class="info-orders">
+                      @if ($order->status == 'PENDING')
+                      <h5>Pesanan Anda Sedang Diproses
+                        <span style="margin-left: 15px" class="@if ($order->status == 'PENDING')
+                          label-delivery bg-warning
+                        @elseif($order->status == 'PAID')
+                        label-delivery label-delivered
+                        @else
+                        label-delivery label-cancel
+                        @endif">{{ $order->status }}</span>
+                      </h5>
+                      <p>Pesanan #{{ $order->external_id }} sedang di prosess</p>
+                      @elseif ($order->status == 'PAID')
+                      <h5>Pesanan Anda Berhasil</h5>
+                      <p>Pesanan #{{ $order->external_id }} sudah Diproses</p>
+                      @endif
+                    </div>
+                    <div class="quantity-orders">
+                      {{-- <h5>Quantity: {{ $productArr[1]}}</h5> --}}
+                    </div>
+                    <div class="price-orders">
+                      {{-- <h5>{{ rupiah($productArr[2]) }}</h5> --}}
+                      {{-- {{ var_dump($order->external_id) }} --}}
+                      <a href="{{ route('my-detail-order',$order->external_id) }}" class="btn btn-success" >View Detail</a>
+                      {{-- <a href="{{ $order->payment_link }}" class="btn btn-buy font-sm-bold w-auto">View Detail</a></div> --}}
+                    </div>
+                  </div>
+                  @endforeach
                 </div>
-                {{-- <div class="button-notification"><a href="#tab-orders" class="btn btn-buy w-auto">View Details</a></div> --}}
               </div>
-              @endforeach
+            </div>    
+            @endforeach
             </div>
             {{-- <nav>
               <ul class="pagination">
