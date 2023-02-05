@@ -165,7 +165,7 @@
                 </div>
                 
                 <div class="list-orders mt-3">
-                  @foreach (json_decode($order->emptyBottles_id) as $order_emptyBottle)
+                  {{-- @foreach (json_decode($order->emptyBottles_id) as $order_emptyBottle)
                   @php
                       $bottletArr = explode('-',$order_emptyBottle);
                       $bottle_order = App\Koinpack_emptybottle::find($bottletArr[0]);
@@ -174,7 +174,6 @@
                   @if ($bottle_order)
                   <div class="item-orders">
                     <div class="image-orders">
-                      {{-- <img src="{{ url('frontend/assets/imgs/page/account/img-1.png') }}" alt="Alner"> --}}
                     <img src="{!!$bottle_order->image ? Storage::url($bottle_order->image) : url('backend/assets/img/news/img11.jpg') !!} ">
                     </div>
                     <div class="info-orders">
@@ -183,12 +182,10 @@
                     <div class="quantity-orders">
                       <h5>Quantity: {{ $bottletArr[1]}}</h5>
                     </div>
-                    {{-- <div class="price-orders">
-                      <h5>{{ rupiah($bottletArr[1]) }}</h5>
-                    </div> --}}
+             
                   </div>
                   @endif
-                  @endforeach
+                  @endforeach --}}
                 </div>
               </div>
             </div>    

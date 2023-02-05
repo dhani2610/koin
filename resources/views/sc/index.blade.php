@@ -203,26 +203,11 @@
  
 
 @php
-    
-// Ini akan menjadi Token Verifikasi Callback Anda yang dapat Anda peroleh dari dasbor.
-// Pastikan untuk menjaga kerahasiaan token ini dan tidak mengungkapkannya kepada siapa pun.
-// Token ini akan digunakan untuk melakukan verfikasi pesan callback bahwa pengirim callback tersebut adalah Xendit
 $xenditXCallbackToken = '3f992c56013184cb60c97bb686874313964a5404c9a86902033cdf540f6d88d4';
-
-// Bagian ini untuk mendapatkan Token callback dari permintaan header, 
-// yang kemudian akan dibandingkan dengan token verifikasi callback Xendit
 $reqHeaders = getallheaders();
 $xIncomingCallbackTokenHeader = isset($reqHeaders['x-callback-token']) ? $reqHeaders['x-callback-token'] : "";
-
-// Untuk memastikan permintaan datang dari Xendit
-// Anda harus membandingkan token yang masuk sama dengan token verifikasi callback Anda
-// Ini untuk memastikan permintaan datang dari Xendit dan bukan dari pihak ketiga lainnya.
 if($xIncomingCallbackTokenHeader === $xenditXCallbackToken){
-  // Permintaan masuk diverifikasi berasal dari Xendit
-    
-  // Baris ini untuk mendapatkan semua input pesan dalam format JSON teks mentah
   $rawRequestInput = file_get_contents("php://input");
-  // Baris ini melakukan format input mentah menjadi array asosiatif
   $arrRequestInput = json_decode($rawRequestInput, true);
   print_r($arrRequestInput);
   
@@ -234,11 +219,7 @@ if($xIncomingCallbackTokenHeader === $xenditXCallbackToken){
   $_paidAt = $arrRequestInput['paid_at'];
   $_paymentChannel = $arrRequestInput['payment_channel'];
   $_paymentDestination = $arrRequestInput['payment_destination'];
-
-  // Kamu bisa menggunakan array objek diatas sebagai informasi callback yang dapat digunaka untuk melakukan pengecekan atau aktivas tertentu di aplikasi atau sistem kamu.
-
 }else{
-  // Permintaan bukan dari Xendit, tolak dan buang pesan dengan HTTP status 403
   http_response_code(403);
 }
 @endphp
@@ -248,11 +229,6 @@ if($xIncomingCallbackTokenHeader === $xenditXCallbackToken){
         <div class="contentAlert">
       
           <div class="topHalf" >
-      
-            {{-- <p><svg viewBox="0 0 512 512" width="100" title="check-circle">
-              <path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z" />
-              </svg></p> --}}
-              {{-- <img src="{{ asset('frontend/NicePng_check-png_3325750.png') }}" alt=""> --}}
               <img src="{{ asset('frontend/NicePng_check-png_3325750.png') }}" style="max-width: 107px;" alt="">
             <h1>Recharge Successful</h1>
       
