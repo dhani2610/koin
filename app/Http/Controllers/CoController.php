@@ -27,7 +27,7 @@ class CoController extends Controller
         if ($request->ajax()){
             $title = $request->search;
             $voucher = Koinpack_voucher::where('title', $title)->first();
-   
+
             if ($voucher == null){
                 return response()->json([
                     'req' => $request->search,

@@ -12,6 +12,8 @@ use App\Users;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
 
 class MyaccountController extends Controller
 {
@@ -79,10 +81,22 @@ class MyaccountController extends Controller
             'customer'
         ])->findOrFail($id);
 
+        if ($request->file('image') != null) {
+            $path = $request->file('image')->store('assets/gallery', 'public');
+            //delete image
+            if(File::exists(('storage/'.$item->image))){
+                File::delete('storage/'.$item->image);            
+            }
+        } else {
+            $path = $item->image;
+        }
+        
+        
+
         $customer = Koinpack_customer::findOrFail($item->customer->id);
 
         $item_user = $item->update([
-            // 'image'         => $path,
+            'image'         => $path,
             'name'         => $request->name,
             'email'        => $request->email,
             // 'password'     => $pass,

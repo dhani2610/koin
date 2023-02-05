@@ -118,7 +118,7 @@ Route::get('cart', 'CartController@index')
 Route::get('co', 'CoController@index')
         ->name('co');
 
-Route::get('success', 'CoController@success')
+Route::get('success/{id}', 'CoController@success')
         ->name('success');
 Route::get('my-detail-order/{id_order}', 'MyaccountController@detail')
         ->name('my-detail-order');

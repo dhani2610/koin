@@ -31,8 +31,8 @@
     <div class="col-lg-4 px-0 bg-success">
       <div class="py-4 px-4 height-100" style="background-color: #F1F5F9">
         <div class="py-2 d-flex px-0 align-items-center justify-content-between">
-          <input wire:model="vc" type="text" value="{{ $vc }}" placeholder="Enter a voucher" class="form-control text-brand py-2">
-          <button class="btn btn-primary cek-vc" onclick="cek()">Cek</button>
+          <input wire:model="vc" type="text" value="{{ $vc }}" placeholder="Enter a voucher" id="voucher" class="form-control text-brand py-2">
+          <a class="btn btn-primary cek-vc" onclick="cek()" style="height : 35px;">Cek</a>
         </div>
         <div class="py-2 d-flex px-0 align-items-center justify-content-between">
           <div id="msg-vc"></div>
@@ -49,6 +49,10 @@
             <option value="10">Antar Sendiri</option>
             <option value="8000">Dijemput Koinpack</option>
           </select>
+        </div>
+        <div class="border-top mt-2 py-3 pt-4 d-flex align-items-center justify-content-between div-nominal hilang">
+          <span class="fs-6">Voucher Nominal</span>
+          <span class="fs-6 vc-nominal" ></span>
         </div>
         <div class="border-top mt-2 py-3 pt-4 d-flex align-items-center justify-content-between">
           <span class="fs-6">Shipping</span>
@@ -111,12 +115,10 @@
           @endif
           
         @endif
-        <div class="border-top mt-2 py-3 pt-4 d-flex align-items-center justify-content-between div-nominal hilang">
-          <span class="fs-6">Voucher Nominal</span>
-          <span class="fs-6 vc-nominal" ></span>
-        </div>
+     
 
         <div class="mt-4">
+          {{-- {{var_dump($total)}} --}}
         <button wire:click="store({{ $total }}, '{{ $cashback }}')" type="submit" class="btn btn-success width-100  @if (!$totalProduct && !$totaleEmptyBottle) disabled @endif">Checkout</button>
           {{-- <a href="{{ route('checkout') . '?name=' . urlencode($name) . '&cashback=' . urlencode($cashback) . '&phone=' . urlencode($phone) . '&address=' . urlencode($address) . '&notes=' . urlencode($notes) . '&shipping=' . urlencode($shipping) . '&total=' . urlencode($total) . '&vc=' . $vc }}" class="btn btn-success width-100  @if (!$totalProduct && !$totaleEmptyBottle) disabled @endif">Checkout</a> --}}
         </div>
@@ -141,6 +143,7 @@
               $('#msg-vc').html(data.msg);
   
               var bilangan = data.price;
+              console.log(data);
      
               if (data.msg == 'Voucher Ditemukan') {
                 $('.vc-nominal').html('Rp. '+data.price);

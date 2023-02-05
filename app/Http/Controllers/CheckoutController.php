@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\QueryException;
 use Alert;
 use App\Koinpack_shopping_cart;
+use App\Koinpack_voucher;
 use App\Users;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,10 @@ class CheckoutController extends Controller
 
     public function store($name, $cashback, $phone, $address, $notes, $shipping, $total, $vc)
     {
-        // dd($phone);
+        // dd($vc);
+        $voucher = Koinpack_voucher::where('title', $vc)->first();
+        // dd($total - $voucher->price);
+
         try {
             if ($cashback > 0) {
                 $carts = Koinpack_shopping_cart::with([
@@ -62,23 +66,45 @@ class CheckoutController extends Controller
     
                 $price = $total;
                 $external_id = Str::random(10);
+
+                if ($voucher != null){
+                    $item = Koinpack_payment::create([
+                        "external_id"    => $external_id,
+                        "payment_chanel" => 'Cashback',
+                        "users_id"          => Auth::user()->id,
+                        "price"          => $price - $voucher->price ?? 0,
+                        "status"          => 'PENDING',
+                        // 'payment_link' => $response->invoice_url,
+                        'products_id' => collect($products_id),
+                        'emptyBottles_id' => collect($emptyBottles_id),
+                        'receiver' => $name,
+                        'phone' => $phone,
+                        'address' => $address,
+                        'notes' => $notes,
+                        'shipping' => $shipping,
+                        // 'vc' => $vc,
+                    ]);
+                    
+                }else{
+                    $item = Koinpack_payment::create([
+                        "external_id"    => $external_id,
+                        "payment_chanel" => 'Cashback',
+                        "users_id"          => Auth::user()->id,
+                        "price"          => $price,
+                        "status"          => 'PENDING',
+                        // 'payment_link' => $response->invoice_url,
+                        'products_id' => collect($products_id),
+                        'emptyBottles_id' => collect($emptyBottles_id),
+                        'receiver' => $name,
+                        'phone' => $phone,
+                        'address' => $address,
+                        'notes' => $notes,
+                        'shipping' => $shipping,
+                        // 'vc' => $vc,
+                    ]);
+
+                }
                                 
-                $item = Koinpack_payment::create([
-                    "external_id"    => $external_id,
-                    "payment_chanel" => 'Cashback',
-                    "users_id"          => Auth::user()->id,
-                    "price"          => $price,
-                    "status"          => 'PENDING',
-                    // 'payment_link' => $response->invoice_url,
-                    'products_id' => collect($products_id),
-                    'emptyBottles_id' => collect($emptyBottles_id),
-                    'receiver' => $name,
-                    'phone' => $phone,
-                    'address' => $address,
-                    'notes' => $notes,
-                    'shipping' => $shipping
-                ]);
-                
                 // Alert::success('Transaction Created Successfully');        
                 return redirect()->route('my-account.index')->with('message', 'Checkout Success!');
                 
@@ -130,22 +156,45 @@ class CheckoutController extends Controller
                 ]);
     
                 $response = $data_request->object();
-                $item = Koinpack_payment::create([
-                    "external_id"    => $external_id,
-                    "payment_chanel" => 'Virtual Account',
-                    "users_id"          => Auth::user()->id,
-                    "price"          => $price,
-                    "status"          => $response->status,
-                    'payment_link' => $response->invoice_url,
-                    'products_id' => collect($products_id),
-                    'emptyBottles_id' => collect($emptyBottles_id),
-                    'receiver' => $name,
-                    'phone' => $phone,
-                    'address' => $address,
-                    'notes' => $notes,
-                    'shipping' => $shipping
-    
-                ]);
+                if ($voucher != null){
+
+                    $item = Koinpack_payment::create([
+                        "external_id"    => $external_id,
+                        "payment_chanel" => 'Virtual Account',
+                        "users_id"          => Auth::user()->id,
+                        "price"          => $price - $voucher->price ?? 0,
+                        "status"          => $response->status,
+                        'payment_link' => $response->invoice_url,
+                        'products_id' => collect($products_id),
+                        'emptyBottles_id' => collect($emptyBottles_id),
+                        'receiver' => $name,
+                        'phone' => $phone,
+                        'address' => $address,
+                        'notes' => $notes,
+                        'shipping' => $shipping,
+                        // 'vc' => $vc,
+        
+                    ]);
+                }else{
+                    $item = Koinpack_payment::create([
+                        "external_id"    => $external_id,
+                        "payment_chanel" => 'Virtual Account',
+                        "users_id"          => Auth::user()->id,
+                        "price"          => $price,
+                        "status"          => $response->status,
+                        'payment_link' => $response->invoice_url,
+                        'products_id' => collect($products_id),
+                        'emptyBottles_id' => collect($emptyBottles_id),
+                        'receiver' => $name,
+                        'phone' => $phone,
+                        'address' => $address,
+                        'notes' => $notes,
+                        'shipping' => $shipping,
+                        // 'vc' => $vc,
+        
+                    ]);
+
+                }
 
                 return redirect()->to($response->invoice_url);
             }
