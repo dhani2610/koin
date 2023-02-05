@@ -112,6 +112,10 @@
               </div>
             </div>
             <div class="form-group">
+              <label>Cashback</label>
+              <input type="number" name="cashback" value="{{ old('cashback') }}" class="form-control" required>
+            </div>
+            <div class="form-group">
               <label>Gender</label>
               <select class="form-control form-control" name="gender" required>
                 <option value="male" selected>Male</option>

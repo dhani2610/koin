@@ -35,7 +35,7 @@ class CheckoutController extends Controller
                     ])
                         ->whereHas('empetybottle')
                         ->where('users_id', Auth::user()->id)
-                        ->delete();
+                        ->get();
                 
                 //cashback
                 // $customer= Users::find(Auth::user()->id);
@@ -43,12 +43,22 @@ class CheckoutController extends Controller
                 // $customer->save();
 
                 $products_id = [];
+                $emptyBottles_id = [];
+
                 foreach ($carts as $cart) {
                     $get = $cart->product->price * $cart->qty;
     
                     $products_id[] = $cart->product->id.'-'.$cart->qty.'-'.$get;
                     $cart->delete();
                 }
+
+                foreach ($emptyBottles as $emptyBottle) {
+                    $sumTotalBottle = $emptyBottle->qty * $emptyBottle->empetybottle->price;
+                    
+                    // id emptybottle - qty - total
+                    $emptyBottles_id[] = $emptyBottle->empetybottle->id.'-'.$emptyBottle->qty.'-'.$sumTotalBottle;
+                    $emptyBottle->delete();
+                }   
     
                 $price = $total;
                 $external_id = Str::random(10);
@@ -61,6 +71,7 @@ class CheckoutController extends Controller
                     "status"          => 'PENDING',
                     // 'payment_link' => $response->invoice_url,
                     'products_id' => collect($products_id),
+                    'emptyBottles_id' => collect($emptyBottles_id),
                     'receiver' => $name,
                     'phone' => $phone,
                     'address' => $address,
@@ -85,16 +96,26 @@ class CheckoutController extends Controller
                     ])
                         ->whereHas('empetybottle')
                         ->where('users_id', Auth::user()->id)
-                        ->delete();
+                        ->get();
     
                 
                 $products_id = [];
+                $emptyBottles_id = [];
+
                 foreach ($carts as $cart) {
                     $get = $cart->product->price * $cart->qty;
     
                     $products_id[] = $cart->product->id.'-'.$cart->qty.'-'.$get;
                     $cart->delete();
                 }
+
+                foreach ($emptyBottles as $emptyBottle) {
+                    $sumTotalBottle = $emptyBottle->qty * $emptyBottle->empetybottle->price;
+                    
+                    // id emptybottle - qty - total
+                    $emptyBottles_id[] = $emptyBottle->empetybottle->id.'-'.$emptyBottle->qty.'-'.$sumTotalBottle;
+                    $emptyBottle->delete();
+                }   
                 // dd(collect($products_id));
     
                 $price = $total;
@@ -117,6 +138,7 @@ class CheckoutController extends Controller
                     "status"          => $response->status,
                     'payment_link' => $response->invoice_url,
                     'products_id' => collect($products_id),
+                    'emptyBottles_id' => collect($emptyBottles_id),
                     'receiver' => $name,
                     'phone' => $phone,
                     'address' => $address,

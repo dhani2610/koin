@@ -35,6 +35,7 @@
                           <th style="width: 20%" class="">Name</th>
                           <th class="">Email</th>
                           <th class="text-center">Phone</th>
+                          <th class="text-center">Cashback</th>
                           {{-- <th class="text-center">Address</th> --}}
                           {{-- <th class="text-center">Transactions</th> --}}
                           <th class="text-center">Role</th>
@@ -48,7 +49,7 @@
                       @endphp
                     @forelse ($items as $item)
                     <tr>
-                        <td class="pt-4 text-right">#{{ $s }}</td>
+                        <td class="pt-4 text-right">{{ $s }}</td>
                         <td class="text-center">
                           <a href="{{ route('profile-user',$item->id)  }}">
                             <img alt="image" src="{!!$item->image ? Storage::url($item->image) : url('backend/assets/img/avatar/customer.png') !!}" class="rounded-circle" width="40" data-toggle="title" title="">
@@ -70,6 +71,8 @@
                         </td> --}}
                         <td class="pt-4">{{ $item->email }}</td>
                         <td class="pt-4 text-center">{{ $item->phone }}</td>
+                        <td class="pt-4 text-center">{{ rupiah($item->cashback) }}</td>
+
                         {{-- <td class="pt-4 text-center">{{ $item->customer->address }}</td> --}}
                         {{-- <td class="pt-4 text-center">{{ $item->name }}</td> --}}
                         <td class="text-center"><span class="mt-2 badge badge-light text-lowercase">{{ $item->roles }}</span></td>

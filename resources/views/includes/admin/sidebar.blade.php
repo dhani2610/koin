@@ -18,9 +18,9 @@
         <li class="{{ (Request::segment(2) === 'transactions')||request()->is('admin/transactions/*/edit') ? 'active' : ''  }}">
           <a href="{{ route('transactions.index') }}" class=""><i class="fa-solid fa-calculator mx-auto"></i></i><span class="ml-3">Transactions</span></a>
         </li>
-        <li class="{{ (Request::segment(2) === 'shopping')||request()->is('admin/shopping/*/edit') ? 'active' : ''  }}">
+        {{-- <li class="{{ (Request::segment(2) === 'shopping')||request()->is('admin/shopping/*/edit') ? 'active' : ''  }}">
           <a href="{{ route('shopping.index') }}" class=""><i class="fa-solid fa-cart-shopping mx-auto"></i></i><span class="ml-3">Shopping Cart</span></a>
-        </li>
+        </li> --}}
 
         <li class="menu-header">products</li>
         <li class="{{ (Request::segment(2) === 'products')||request()->is('admin/products/*/edit') ? 'active' : ''  }}">
@@ -32,9 +32,9 @@
         <li class="{{ (Request::segment(2) === 'categories')||request()->is('admin/categories/*/edit') ? 'active' : ''  }}">
           <a href="{{ route('categories.index') }}" class=""><i class="fa-solid fa-layer-group mx-auto"></i><span class="ml-3">Categories</span></a>
         </li>
-        <li class="{{ (Request::segment(2) === 'wishlists')||request()->is('admin/wishlists/*/edit') ? 'active' : ''  }}">
+        {{-- <li class="{{ (Request::segment(2) === 'wishlists')||request()->is('admin/wishlists/*/edit') ? 'active' : ''  }}">
           <a href="{{ route('wishlists.index') }}" class=""><i class="fa-solid fa-heart-circle-check mx-auto"></i><span class="ml-3">Wishlists</span></a>
-        </li>
+        </li> --}}
         <li class="{{ (Request::segment(2) === 'customers')||request()->is('admin/customers/*/edit') ? 'active' : ''  }}">
           <a href="{{ route('customers.index') }}" class=""><i class="fa-solid fa-users mx-auto"></i><span class="ml-3">Customers</span></a>
         </li>

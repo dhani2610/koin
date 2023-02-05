@@ -48,7 +48,7 @@
                       @endphp
                       @forelse ($items as $item)                      
                           <tr>
-                              <td class="text-center">#{{$s}}</td>
+                              <td class="text-center">{{$s}}</td>
                               {{-- <td>
                                 @if ($item->customer_full)
                                     {{ $item->customer_full->name }}

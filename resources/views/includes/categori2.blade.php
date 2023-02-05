@@ -48,7 +48,7 @@
       <h6 class="color-gray-900 mt-10 mb-10">Price</h6>
       @livewire('components.product.product-slider-filter')
       
-      <h6 class="color-gray-900 mt-20 mb-10">Flavours</h6>
+      {{-- <h6 class="color-gray-900 mt-20 mb-10">Flavours</h6>
       <ul class="list-checkbox">
         <li>
           <label class="cb-container">
@@ -69,7 +69,7 @@
             <span class="text-small">Mango & Strawberries</span><span class="checkmark"></span>
           </label>
         </li>
-      </ul>
+      </ul> --}}
     </div>
   </div>
 </div>
