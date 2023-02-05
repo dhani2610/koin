@@ -41,6 +41,13 @@ Route::get('livewire', 'LivewireController@index');
 Route::get('/', 'HomeController@index')
         ->name('home');
 
+//my search navbar user
+ Route::post('/searching','HomeController@search')
+ ->name('searchnavbaruser');
+ //my search navbar user
+ Route::post('/searching','HomeController@searchmobile')
+ ->name('searchnavbaruser');
+
 Route::get('fetch-cart', 'HomeController@fetchcart');
 Route::get('fetch-bestdeal', 'HomeController@fetchbestdeal');
 

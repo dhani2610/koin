@@ -162,7 +162,7 @@
               </div>
         </div>
         <div class="col-lg-4 mb-20" >
-          <div class="banner-small-home10 " style="background-image: url('{{ url ('frontend/assets/imgs/alner/banner3.jpg') }} '); background-size:cover; background-repeat: no-repeat; background-position: center center;">
+          <div class="banner-small-home10 " style="min-height: 454px; background-image: url('{{ url ('frontend/assets/imgs/alner/banner3.jpg') }} '); background-size:cover; background-repeat: no-repeat; background-position: center center;">
             <div class="info-banner mt-40">
               <h5 class="color-gray-1000">Deal of the Week</h5>
               <span class="d-inline"><h1 class="color-gray-1000">40% <span class="fs-5 align-text-top">off</span></h1></span>
@@ -320,7 +320,7 @@
   <!-- Partners End -->
 
   <!-- Testimonial Start -->
-  <section class="section-box bg-color-info ">
+  {{-- <section class="section-box bg-color-info ">
     <div class="container-fluid ">
       <div id="carouselExampleCaptions" class="carousel slide my-5" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -382,7 +382,7 @@
         </button>
       </div>
     </div>
-  </section>
+  </section> --}}
   <!-- Testimonial End -->
 
 @endsection

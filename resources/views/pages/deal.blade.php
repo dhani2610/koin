@@ -20,7 +20,7 @@
             <div class="text-lg-end text-center">
             <!-- <div class="col-xl-10 col-lg-9 mb-10 text-lg-end text-center"> -->
               <!-- <span class="font-sm color-gray-900 font-medium border-1-right span">Showing 1&ndash;16 of 17 results</span> -->
-              <div class="d-inline-block ">
+              {{-- <div class="d-inline-block ">
                 <span class="font-sm color-gray-500 font-medium">Sort by:   
                 </span>
                 <div class="dropdown dropdown-sort">
@@ -33,7 +33,7 @@
                     <li><a class="dropdown-item" href="#">Name Z-A</a></li>
                   </ul>
                 </div>
-              </div>
+              </div> --}}
               <!-- <div class="d-inline-block"><span class="font-sm color-gray-500 font-medium">Show</span>
                 <div class="dropdown dropdown-sort border-1-right">
                   <button class="btn dropdown-toggle font-sm color-gray-900 font-medium" id="dropdownSort2" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"><span>30 items</span></button>

@@ -83,13 +83,13 @@
           </div>
           <div class="header-search ms-md-5 ms-xl-auto d-none d-lg-inline" style="position: relative;">
             <div class="input-group">
-              <input type="text" class="form-control px-3" placeholder="Search a product e.g. milk" aria-label="Recipient's username" aria-describedby="button-addon2" style="border-radius: 20px 0 0 20px;">
-              <button class="btn btn-outline-secondary border-white btn-light" type="button" id="button-addon2" style="border-radius: 0 20px 20px 0;">
+              <input type="text" id="inputSearchUser" class="form-control px-3" placeholder="Search a product e.g. milk" aria-label="Recipient's username" aria-describedby="button-addon2" style="border-radius: 20px;">
+              {{-- <button class="btn btn-outline-secondary border-white btn-light" type="button" id="button-addon2" style="border-radius: 0 20px 20px 0;">
                 <img src="{{ url('frontend/assets/imgs/template/search.svg') }}" alt="Alner"></a></li>
-              </button>
+              </button> --}}
             </div>
-            {{-- <div class="list-group mt-1 mx-2" style="position: absolute; z-index: 99999;">
-              <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+            <div class="list-group mt-1 mx-2 overflow-auto" style="position: absolute; z-index: 99999; display: none; max-height: 200px; width: 96%;" id="searchResultUser">
+              {{-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                 <div class="d-flex justify-content-between">
                   <small>And some small prinasdfasdfsdfasdfasfaasdfasdfasdfasdfsfasdft.</small>
                 </div>
@@ -103,8 +103,8 @@
                 <div class="d-flex justify-content-between">
                   <small class="text-muted">And some muted small print.</small>
                 </div>
-              </a>
-            </div> --}}
+              </a> --}}
+            </div>
           </div>
           
           <div class="header-nav d-block d-lg-none">
@@ -181,13 +181,13 @@
     <div class="container pb-10 d-inline d-lg-none" id="search-bottom" style="position: relative;">
       <div class="header-search ms-auto">
         <div class="input-group">
-          <input type="text" class="form-control px-3" placeholder="Search a product e.g. milk" aria-label="Recipient's username" aria-describedby="button-addon2" style="border-radius: 20px 0 0 20px;">
-          <button class="btn btn-outline-secondary border-white btn-light" type="button" id="button-addon2" style="border-radius: 0 20px 20px 0;">
+          <input type="text" id="inputSearchUserMobile" class="form-control px-3" placeholder="Search a product e.g. milk" aria-label="Recipient's username" aria-describedby="button-addon2" style="border-radius: 20px;">
+          {{-- <button class="btn btn-outline-secondary border-white btn-light" type="button" id="button-addon2" style="border-radius: 0 20px 20px 0;">
             <img src="{{ url('frontend/assets/imgs/template/search.svg') }}" alt="Alner"></a></li>
-          </button>
+          </button> --}}
         </div>
-        {{-- <div class="list-group mt-1 mx-2" style="position: absolute; z-index: 999; width: 300px;">
-          <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+        <div class="list-group mt-1 mx-2 overflow-auto" style="position: absolute; z-index: 999; width: 400px; display: none; max-height: 200px; " id="searchResultUserMobile">
+          {{-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
             <div class="d-flex  justify-content-between">
               <small>And some small print.</small>
             </div>
@@ -201,8 +201,8 @@
             <div class="d-flex  justify-content-between">
               <small class="text-muted">And some muted small print.</small>
             </div>
-          </a>
-        </div> --}}
+          </a>--}}
+        </div> 
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Koinpack_emptybottle;
 use App\Koinpack_product;
 use App\Koinpack_productconvert;
 use App\Koinpack_shopping_cart;
@@ -84,6 +85,46 @@ class HomeController extends Controller
     //     }
         
     // }
+
+    // my search navbar user
+    public function search(Request $request)
+    {
+        $inputSearchUser = $request['inputSearchUser'];
+
+        $keyBottle = Koinpack_emptybottle::where('name', 'LIKE', '%'.$inputSearchUser.'%')
+        ->get();
+
+        $keyProduct = Koinpack_product::where('name', 'LIKE', '%'.$inputSearchUser.'%')
+        ->get();
+
+
+        // $keyResultAll = $keyOngoing->merge($keyDoctor);
+        // $keyResultAll = $keyResultAll->merge($keyGroomer);
+        $keyResultAll = $keyBottle->merge($keyProduct);
+        // $keyResultAll = $keyProduct; 
+        // dd($keyResultAll);
+        echo $keyResultAll;
+    }
+
+     // my search navbar user mobile
+     public function searchmobile(Request $request)
+     {
+         $inputSearchUserMobile = $request['inputSearchUserMobile'];
+ 
+         $keyBottle = Koinpack_emptybottle::where('name', 'LIKE', '%'.$inputSearchUserMobile.'%')
+         ->get();
+ 
+         $keyProduct = Koinpack_product::where('name', 'LIKE', '%'.$inputSearchUserMobile.'%')
+         ->get();
+ 
+ 
+         // $keyResultAll = $keyOngoing->merge($keyDoctor);
+         // $keyResultAll = $keyResultAll->merge($keyGroomer);
+         $keyResultAll = $keyBottle->merge($keyProduct);
+         // $keyResultAll = $keyProduct; 
+         // dd($keyResultAll);
+         echo $keyResultAll;
+     }
 
     public function fetchbestdeal()
     {

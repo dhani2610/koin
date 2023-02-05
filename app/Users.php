@@ -15,7 +15,11 @@ class Users extends Model
 {
     // use SoftDeletes;
 
-    protected $guarded = [];
+    protected $fillable = [        
+        'image','name','email', 
+        'email_verified_at', 'isVerified','password','phone','gender','day_of_birth','remember_token','roles','customers_id','status','cashback'
+      
+    ];
 
     protected $hidden = [ 
     

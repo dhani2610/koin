@@ -75,32 +75,7 @@
                 </div>
               </div>
               <div class="content-wishlist">
-                @forelse ($userWishlists as $userWishlist)
-                <div class="item-wishlist">
-                  <div class="wishlist-cb">
-                    {{-- <input class="cb-layout cb-select" type="checkbox"> --}}
-                  </div>
-                  <div class="wishlist-product">
-                    <div class="product-wishlist">
-                      <div class="product-image"><a href="shop-single-product.html"><img src="{!!$userWishlist->product ? Storage::url($userWishlist->product->image) : url('backend/assets/img/news/img11.jpg') !!}" alt="Alner"></a></div>
-                      <div class="product-info"><a href="shop-single-product.html">
-                          <h6 class="color-brand-3">{{ $userWishlist->product->name }} </h6></a>
-                        {{-- <div class="rating"><img src="{{ url('frontend/assets/imgs/template/icons/star.svg') }}" alt="Alner"><img src="{{ url('frontend/assets/imgs/template/icons/star.svg') }}" alt="Alner"><img src="{{ url('frontend/assets/imgs/template/icons/star.svg') }}" alt="Alner"><img src="{{ url('frontend/assets/imgs/template/icons/star.svg') }}" alt="Alner"><img src="{{ url('frontend/assets/imgs/template/icons/star.svg') }}" alt="Alner"><span class="font-xs color-gray-500"> (65)</span></div> --}}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="wishlist-price">
-                    <h6 class="color-brand-3">{{ rupiah($userWishlist->product->price) }}</h6>
-                  </div>
-                  <div class="wishlist-status"><span class="btn btn-gray font-md-bold color-brand-3">In Stock</span></div>
-                  <div class="wishlist-action"><a class="btn btn-cart font-sm-bold" href="shop-cart.html">Add to Cart</a></div>
-                  <div class="wishlist-remove"><a class="btn btn-delete" href="#"></a></div>
-                </div>
-                @empty
-                    {{-- <div class="">
-                      Empty
-                    </div> --}}
-                @endforelse
+                @livewire('components.cartwish.cart-list-wish')
               </div>
             </div>
           </div>
@@ -121,7 +96,6 @@
                   @else
                   label-delivery label-cancel
                   @endif">{{ $order->status }}</span>
-                  
                 </div>
                 @if ($order->payment_link)
                   @if ($order->status == 'PENDING')
@@ -132,20 +106,15 @@
               </div>
               <div class="body-orders">
                 <div class="list-orders">
-                  @php
-                  // $product_order = json_decode($order->products_id);
-                  // $name = explode('-',$product_order);
-                  //     dd($name[0]);
-                  @endphp
                   @foreach (json_decode($order->products_id) as $order_products)
                   @php
                       $productArr = explode('-',$order_products);
                       // dd($productArr[1]);
                       $product_order = App\Koinpack_product::find($productArr[0]);
                   @endphp
+                  @if ($product_order)
                   <div class="item-orders">
                     <div class="image-orders">
-                      
                       {{-- <img src="{{ url('frontend/assets/imgs/page/account/img-1.png') }}" alt="Alner"> --}}
                     <img src="{!!$product_order->image ? Storage::url($product_order->image) : url('backend/assets/img/news/img11.jpg') !!} ">
                     </div>
@@ -155,10 +124,38 @@
                     <div class="quantity-orders">
                       <h5>Quantity: {{ $productArr[1]}}</h5>
                     </div>
-                    <div class="price-orders">
-                      <h5>{{ rupiah($productArr[2]) }}</h5>
-                    </div>
+                    {{-- <div class="price-orders">
+                      <h5>{{ rupiah($productArr[1]) }}</h5>
+                    </div> --}}
                   </div>
+                  @endif
+                  @endforeach
+                </div>
+                
+                <div class="list-orders mt-3">
+                  @foreach (json_decode($order->emptyBottles_id) as $order_emptyBottle)
+                  @php
+                      $bottletArr = explode('-',$order_emptyBottle);
+                      $bottle_order = App\Koinpack_emptybottle::find($bottletArr[0]);
+                      // dd($bottle_order);
+                  @endphp
+                  @if ($bottle_order)
+                  <div class="item-orders">
+                    <div class="image-orders">
+                      {{-- <img src="{{ url('frontend/assets/imgs/page/account/img-1.png') }}" alt="Alner"> --}}
+                    <img src="{!!$bottle_order->image ? Storage::url($bottle_order->image) : url('backend/assets/img/news/img11.jpg') !!} ">
+                    </div>
+                    <div class="info-orders">
+                      <h5>{{ $bottle_order->name }}</h5>
+                    </div>
+                    <div class="quantity-orders">
+                      <h5>Quantity: {{ $bottletArr[1]}}</h5>
+                    </div>
+                    {{-- <div class="price-orders">
+                      <h5>{{ rupiah($bottletArr[1]) }}</h5>
+                    </div> --}}
+                  </div>
+                  @endif
                   @endforeach
                 </div>
               </div>

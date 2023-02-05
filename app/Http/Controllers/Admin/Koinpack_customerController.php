@@ -230,6 +230,7 @@ class Koinpack_customerController extends Controller
                     'image'         => $path,
                     'name'         => $request->name,
                     'email'        => $request->email,
+                    'cashback'     => $request->cashback,
                     'password'     => $pass,
                     'phone'        => $request->phone,
                     'gender'        => $request->gender,
