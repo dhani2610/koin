@@ -83,7 +83,7 @@
                                     <i class="fa fa-eye"></i>
                                 </a>  --}}
 
-                                <a href="{{ route('customers.edit', $item->id)}}" 
+                              <a href="{{ route('customers.edit', $item->id)}}" 
                                   class="btn btn-info">
                                   <i class="fa fa-pencil-alt"></i>
                               </a>

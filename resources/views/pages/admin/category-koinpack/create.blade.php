@@ -48,6 +48,19 @@
             <div class="card-body">
                 <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">{{-- untuk menyimpan sebuah data menggunakan functioan 'store' --}}
                   @csrf{{-- setiap buat form pakai @csrf --}}
+
+                  <img class="img-thumbnail" id="output" src="{{url('backend/assets/img/news/img11.jpg') }}" width="300" style="max-width: 38%;">
+                    
+                  <div class="form-group mt-3">
+                      <label for="image">Image</label>
+                    <div class="input-group">
+                      
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image" id="inputGroupFile01" onchange="loadFile(event)" style="max-width: 38%!important;">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                      </div>
+                    </div>
+                  </div>
                   
                   <div class="form-group">
                     <label for="name_category">Name Category</label>
@@ -71,5 +84,11 @@
 @endsection
 
 @push('addon-script')
-  
+<script>
+  var loadFile = function (event) {
+    // alert('ok');
+    var ouput = document.getElementById('output');
+    ouput.src = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
 @endpush

@@ -106,7 +106,7 @@ class CheckoutController extends Controller
                 }
                                 
                 // Alert::success('Transaction Created Successfully');        
-                return redirect()->route('my-account.index')->with('message', 'Checkout Success!');
+                return redirect()->route('success',$item->id)->with('message', 'Checkout Success!');
                 
             }else {
                 $carts = Koinpack_shopping_cart::with([

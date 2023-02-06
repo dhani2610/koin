@@ -45,8 +45,10 @@
           <a href="{{ route('slider-logo.index')}}" class=""><i class="fa-solid fa-sliders mx-auto"></i><span class="ml-3">Slider Logo</span></a>
         </li>
 
-
         <li class="menu-header">UTILITIES</li>
+        <li class="{{ (Request::segment(2) === 'customer-support-admin')||request()->is('customer-support-admin') ? 'active' : ''  }}">
+          <a href="{{ route('customer-support-admin') }}" class=""><i class="fa-solid fas fa-headset mx-auto"></i><span class="ml-3">Customer Support</span></a>
+        </li>
         <li class="{{ (Request::segment(2) === 'locations')||request()->is('admin/locations/*/edit') ? 'active' : ''  }}">
           <a href="{{ route('locations.index') }}" class=""><i class="fa-solid fa-map-location-dot mx-auto"></i><span class="ml-3">Locations Partners</span></a>
         </li>

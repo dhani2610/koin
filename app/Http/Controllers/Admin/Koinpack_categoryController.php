@@ -63,7 +63,10 @@ class Koinpack_categoryController extends Controller
         $data = $request->all();
         // dd($data['image']);
         // $data['image'] = $request->file('image') != null ? $request->file('image')->store('assets/gallery', 'public') : null;         
-        
+        $request->file('image') != null ? $data['image'] = $request->file('image')->store('assets/gallery', 'public') : null;
+        // $data['image'] = 
+        // dd($data);
+
         try {
             $item = Koinpack_category::create($data);
             // dd($item);
@@ -144,10 +147,24 @@ class Koinpack_categoryController extends Controller
         $data = $request->all();
         //$data['slug'] = Str::slug($request->title); //menambahkan slug, sebagai ID tapi lebih cantiknya
         // $request->file('foto') != null ? $data['foto'] = $request->file('foto')->store('assets/gallery', 'public') : $data['foto'] = null;
+        
+        $item = Koinpack_category::findOrFail($id);
 
         // $request->file('image') != null ? $data['image'] = $request->file('image')->store('assets/gallery', 'public') : null;
 
-        $item = Koinpack_category::findOrFail($id);
+        // if ($request->file('image') != null) {
+        //     $path = $request->file('image')->store('assets/gallery', 'public');
+        //     //delete image
+        //     if(File::exists(('storage/'.$item->image))){
+        //         File::delete('storage/'.$item->image);            
+        //     }
+        // } else {
+        //     $data['image'] = $item->image;
+        // }
+
+        $request->file('image') != null ? $data['image'] = $request->file('image')->store('assets/gallery', 'public') : null;
+
+        // dd($item);
         try {
             
             $item->update($data);

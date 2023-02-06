@@ -6,6 +6,7 @@ use App\Koinpack_emptybottle;
 use App\Koinpack_product;
 use App\Koinpack_productconvert;
 use App\Koinpack_shopping_cart;
+use App\Koinpack_category;
 use App\Koinpack_sliderlogo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -43,6 +44,10 @@ class HomeController extends Controller
 
         $slider_logos = Koinpack_sliderlogo::all();
 
+        $cat = Koinpack_category::all();
+        // dd($cat);
+
+
         $items = Koinpack_product::with([
             'category'
             ])
@@ -51,7 +56,8 @@ class HomeController extends Controller
         
         return view('pages.home',[
             'items'         => $items,
-            'slider_logos'   => $slider_logos
+            'slider_logos'   => $slider_logos,
+            'cat'   => $cat,
         ]);
     }
 

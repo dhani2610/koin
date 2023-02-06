@@ -110,16 +110,6 @@ Route::post('callback', 'CheckoutController@callback');
 
 Route::get('customer-support', 'CustomersupportController@index')
         ->name('customer-support');
-Route::get('customer-support-admin', 'CustomersupportController@indexAdmin')
-        ->name('customer-support-admin');
-Route::post('customer-support-store', 'CustomersupportController@store')
-        ->name('customer-support-store');
-
-Route::get('customer-support-change-status/{id}', 'CustomersupportController@changeStatus')
-->name('customer-support-change-status');
-
-Route::post('customer-support-change-status-post/{id}', 'CustomersupportController@changeStatuspost')
-->name('customer-support-change-status-post');
 
 
 Route::get('cart', 'CartController@index')
@@ -130,8 +120,6 @@ Route::get('co', 'CoController@index')
 
 Route::get('success/{id}', 'CoController@success')
         ->name('success');
-// Route::get('success', 'CoController@success')
-//         ->name('success');
 Route::get('my-detail-order/{id_order}', 'MyaccountController@detail')
         ->name('my-detail-order');
 

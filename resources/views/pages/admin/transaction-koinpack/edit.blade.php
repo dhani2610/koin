@@ -53,9 +53,11 @@
 
                   <div class="form-group">
                     <label for="products_id">Product</label>
+                    {{-- {{var_dump($item->products_id)}} --}}
+
                     <select name="products_id" class="form-control" required>
                       @if ($item->products_id)
-                        <option value="{{$item->products_id}}">.: {{$item->product->name}} :.</option>
+                        <option value="{{$item->products_id}}">.: {{$item->product->name ?? ''}} :.</option>
                       @else
                         <option value="">.: Product Removed :.</option>
                       @endif

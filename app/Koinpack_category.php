@@ -10,7 +10,8 @@ class Koinpack_category extends Model
     // use SoftDeletes;
 
     protected $fillable = [
-        'name_category'
+        'name_category',
+        'image',
     ];
 
     protected $hidden =[

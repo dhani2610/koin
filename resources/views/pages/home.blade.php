@@ -197,8 +197,9 @@
         <div class="swiper-container swiper-group-3 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
           <div class="swiper-wrapper pt-5" id="swiper-wrapper-6c7074be1e1e8238" aria-live="off" style="transform: translate3d(-1824px, 0px, 0px); transition-duration: 0ms;">
             
-            @foreach ($items->where('category_id',12) as $item)
-              @include('components.slider-most-popular', ['items' => $items->where('category_id',12)])
+            @foreach ($cat as $item)
+            {{-- {{dd($items->where('category_id',12))}} --}}
+              @include('components.slider-most-popular', ['item' => $item])
                 
             @endforeach
 

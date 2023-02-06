@@ -164,20 +164,19 @@
                     <div class="quantity-orders">
                       <h5>Quantity: {{ $productArr[1]}}</h5>
                     </div>
-                    {{-- <div class="price-orders">
-                      <h5>{{ rupiah($productArr[1]) }}</h5>
-                    </div> --}}
+                    <div class="price-orders">
+                      <h5>{{ rupiah($productArr[1] * intval($product_order->price)) }}</h5>
+                    </div>
                   </div>
                   @endif
                   @endforeach
                 </div>
                 
                 <div class="list-orders mt-3">
-                  {{-- @foreach (json_decode($order->emptyBottles_id) as $order_emptyBottle)
+                  @foreach (json_decode($order->emptyBottles_id) as $order_emptyBottle)
                   @php
                       $bottletArr = explode('-',$order_emptyBottle);
                       $bottle_order = App\Koinpack_emptybottle::find($bottletArr[0]);
-                      // dd($bottle_order);
                   @endphp
                   @if ($bottle_order)
                   <div class="item-orders">
@@ -190,10 +189,13 @@
                     <div class="quantity-orders">
                       <h5>Quantity: {{ $bottletArr[1]}}</h5>
                     </div>
+                    <div class="price-orders">
+                      <h5>{{ rupiah( $bottletArr[1] * intval($bottle_order->price)) }}</h5>
+                    </div>
              
                   </div>
                   @endif
-                  @endforeach --}}
+                  @endforeach
                 </div>
               </div>
             </div>    

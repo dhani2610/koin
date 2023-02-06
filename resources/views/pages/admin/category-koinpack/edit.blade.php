@@ -34,6 +34,20 @@
                   @csrf{{-- setiap buat form pakai @csrf --}}
                   @method('PUT')
                   
+                   <img class="img-thumbnail" id="output" src="{!!$item->image ? Storage::url($item->image) : url('backend/assets/img/news/img11.jpg') !!}" width="300">
+                  
+                <div class="form-group">
+                    <label for="image">Image</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-folder-open"></i></span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="image" id="inputGroupFile01" onchange="loadFile(event)">
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                  </div>
+                </div>
                   <div class="form-group">
                     <label for="name_category">Name Category</label>
                     <input type="text" class="form-control" name="name_category" placeholder="Name Category" value="{{ $item->name_category }}" required>
@@ -56,5 +70,11 @@
 @endsection
 
 @push('addon-script')
-  
+<script>
+  var loadFile = function (event) {
+    // alert('ok');
+    var ouput = document.getElementById('output');
+    ouput.src = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
 @endpush

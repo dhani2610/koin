@@ -7,43 +7,51 @@
     <div class="container">
       <div class="box-contact">
         <div class="row">
+          @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+          @endif
           <div class="col-lg-6">
             <div class="contact-form">
               <h3 class="color-brand-3 mt-60">Customer Support</h3>
               <h5>We're Here to Help!</h5>
               <p class="font-sm color-gray-700 mb-30">Fill out the form with any quarry on your mind<br> and we'll get back to you as soon as possible</p>
-              <div class="row">
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <input class="form-control" type="text" placeholder="First name">
+              <form action="{{ route('customer-support-store') }}" method="POST">
+                @csrf
+                <div class="row">
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <input class="form-control" type="text" placeholder="First name" required name="first_name">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <input class="form-control" type="text" placeholder="Last name" required name="last_name">
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <input class="form-control" type="email" placeholder="Email" required name="email">
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <input class="form-control" type="tel" placeholder="Phone number" required name="tlp">
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <textarea class="form-control" placeholder="Message" rows="5" required name="msg"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <input class="btn btn-buy w-auto" type="submit" value="Send message">
+                    </div>
                   </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                  <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Last name">
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="form-group">
-                    <input class="form-control" type="email" placeholder="Email">
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="form-group">
-                    <input class="form-control" type="tel" placeholder="Phone number">
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="form-group">
-                    <textarea class="form-control" placeholder="Message" rows="5"></textarea>
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <div class="form-group">
-                    <input class="btn btn-buy w-auto" type="submit" value="Send message">
-                  </div>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
           <div class="col-lg-6">
